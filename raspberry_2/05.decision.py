@@ -8,7 +8,7 @@ def make_black(image, threshold=140):
     black_image = cv2.inRange(gray_image, threshold, 255)
     return black_image, gray_image
 
-def path_decision(image, limit=150):
+def path_decision(image, limit=170):    # limit: 150 -> 190
     height, width = image.shape
     image = image[height-limit:height-10, :]
     height = limit - 1
@@ -26,13 +26,13 @@ def path_decision(image, limit=150):
     print(left_sum, right_sum, forward_sum)
 
     # 방향 결정
-    if forward_sum > 12000:
+    if forward_sum > 6000:  # 12000 -> 6000
         decision = 'f'
     elif left_sum > right_sum:
         decision = 'l'
     elif left_sum <= right_sum:
         decision = 'r'
-    elif forward_sum < 500:
+    elif forward_sum < 300: # 500 -> 300
         decision = 'b'
     else:
         decision = 'except'
